@@ -1,0 +1,19 @@
+# IDE
+.vscode/
+.idea/
+*~
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Misc
+*.pem
+.cache/
+__pycache__/
+
+# Virtual environments
+venv/
+env/
+tutoriaplus/

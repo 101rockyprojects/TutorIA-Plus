@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador de Guías de Estudio 🎓</title>
+<style>
+  :root {
+    --gd: #1a6b3c; --gm: #2e9e5e; --gp: #d4f0e2; --gu: #eafaf1;
+    --bg: #f4f6f5; --td: #1a2e25; --tm: #3d5a4a; --r: 14px;
+    --sh: 0 4px 20px rgba(30,100,60,.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--td); min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, var(--gd), var(--gm));
+    color: #fff; padding: 28px 20px; text-align: center;
+  }
+  header h1 { font-size: clamp(1.4rem, 4vw, 2rem); }
+  header p { margin-top: 6px; opacity: .85; font-size: .95rem; }
+
+  main { max-width: 680px; margin: 0 auto; padding: 28px 16px 60px; }
+
+  .card {
+    background: #fff; border-radius: var(--r); padding: 24px;
+    box-shadow: var(--sh); margin-bottom: 20px;
+  }
+  .card h2 { color: var(--gd); font-size: 1.1rem; margin-bottom: 16px; }
+
+  label { display: block; font-size: .9rem; font-weight: 600; color: var(--tm); margin-bottom: 6px; }
+
+  textarea {
+    width: 100%; border: 2px solid var(--gp); border-radius: 10px;
+    padding: 12px; font-size: .93rem; color: var(--td); resize: vertical;
+    min-height: 120px; font-family: inherit; transition: border .2s;
+  }
+  textarea:focus { outline: none; border-color: var(--gm); }
+
+  .file-drop {
+    border: 2px dashed var(--gp); border-radius: 10px; padding: 24px;
+    text-align: center; cursor: pointer; transition: all .2s; background: var(--gu);
+  }
+  .file-drop:hover, .file-drop.over { border-color: var(--gm); background: var(--gp); }
+  .file-drop p { color: var(--tm); font-size: .88rem; margin-top: 8px; }
+  .file-drop .icon { font-size: 2rem; }
+  #file-name { margin-top: 8px; font-size: .85rem; color: var(--gm); font-weight: 600; }
+  #file-input { display: none; }
+
+  .nivel-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px;
+  }
+  .nivel-btn {
+    background: var(--gu); border: 2px solid var(--gp); border-radius: 10px;
+    padding: 10px 6px; text-align: center; cursor: pointer; font-size: .82rem;
+    font-weight: 600; color: var(--td); transition: all .15s;
+  }
+  .nivel-btn:hover { border-color: var(--gm); background: var(--gp); }
+  .nivel-btn.active { border-color: var(--gm); background: var(--gp); color: var(--gd); }
+  .nivel-btn .ni { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+
+  .btn-gen {
+    width: 100%; background: var(--gm); color: #fff; border: none;
+    border-radius: 10px; padding: 14px; font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: all .2s; margin-top: 4px;
+  }
+  .btn-gen:hover:not(:disabled) { background: var(--gd); transform: translateY(-1px); }
+  .btn-gen:disabled { background: #a0c4b4; cursor: not-allowed; }
+
+  /* Loading */
+  #loading { display: none; text-align: center; padding: 30px; }
+  .spinner {
+    width: 44px; height: 44px; border: 4px solid var(--gp);
+    border-top-color: var(--gm); border-radius: 50%;
+    animation: spin .8s linear infinite; margin: 0 auto 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #loading p { color: var(--tm); font-size: .93rem; }
+
+  /* Resultado */
+  #resultado { display: none; }
+  .res-card {
+    background: #fff; border-radius: var(--r); padding: 24px;
+    box-shadow: var(--sh); text-align: center;
+  }
+  .res-card h3 { color: var(--gd); font-size: 1.2rem; margin-bottom: 8px; }
+  .res-card p { color: var(--tm); font-size: .9rem; margin-bottom: 20px; }
+  .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-download {
+    background: var(--gm); color: #fff; border: none; border-radius: 10px;
+    padding: 12px 24px; font-size: .95rem; font-weight: 700; cursor: pointer;
+    text-decoration: none; display: inline-block; transition: all .2s;
+  }
+  .btn-download:hover { background: var(--gd); }
+  .btn-preview {
+    background: var(--gu); color: var(--gd); border: 2px solid var(--gp);
+    border-radius: 10px; padding: 12px 24px; font-size: .95rem;
+    font-weight: 700; cursor: pointer; transition: all .2s;
+  }
+  .btn-preview:hover { border-color: var(--gm); background: var(--gp); }
+  .btn-new {
+    background: transparent; color: var(--tm); border: none;
+    font-size: .88rem; cursor: pointer; text-decoration: underline; margin-top: 10px;
+  }
+
+  /* Error */
+  #error-box {
+    display: none; background: #fde8e8; border-left: 4px solid #e03e3e;
+    border-radius: 0 10px 10px 0; padding: 12px 16px; margin-top: 12px;
+    font-size: .9rem; color: #7a1c1c;
+  }
+
+  /* Preview modal */
+  #preview-modal {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6);
+    z-index: 1000; align-items: center; justify-content: center; padding: 16px;
+  }
+  #preview-modal.open { display: flex; }
+  #preview-wrap {
+    background: #fff; border-radius: var(--r); width: 100%; max-width: 900px;
+    height: 85vh; display: flex; flex-direction: column; overflow: hidden;
+  }
+  #preview-header {
+    background: var(--gd); color: #fff; padding: 12px 18px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-weight: 700; font-size: .95rem; flex-shrink: 0;
+  }
+  #preview-header button {
+    background: rgba(255,255,255,.2); border: none; color: #fff;
+    border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: .9rem;
+  }
+  #preview-frame { flex: 1; border: none; width: 100%; }
+
+  @media(max-width:500px) { .btn-row { flex-direction: column; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎓 Generador de Guías de Estudio</h1>
+  <p>Convierte cualquier tema en una guía interactiva con quiz</p>
+</header>
+
+<main>
+  <!-- FORMULARIO -->
+  <div id="form-section">
+
+    <!-- Entrada de contenido -->
+    <div class="card">
+      <h2>📄 Contenido del tema</h2>
+
+      <!-- Subir archivo -->
+      <div class="file-drop" id="file-drop" onclick="document.getElementById('file-input').click()">
+        <span class="icon">📎</span>
+        <p>Haz clic o arrastra aquí un <strong>PDF</strong> o <strong>imagen</strong></p>
+        <div id="file-name"></div>
+      </div>
+      <input type="file" id="file-input" accept=".pdf,image/*">
+
+      <p style="text-align:center;color:var(--tm);font-size:.85rem;margin:12px 0;">— o escribe/pega el tema —</p>
+
+      <label for="texto-input">Texto del tema</label>
+      <textarea id="texto-input" placeholder="Ej: El sistema solar, las funciones matemáticas, la Revolución Francesa..."></textarea>
+    </div>
+
+    <!-- Nivel educativo -->
+    <div class="card">
+      <h2>🎯 Nivel educativo</h2>
+      <div class="nivel-grid">
+        <div class="nivel-btn" data-nivel="Primaria" onclick="selNivel(this)">
+          <span class="ni">🧒</span>Primaria
+        </div>
+        <div class="nivel-btn active" data-nivel="Secundaria" onclick="selNivel(this)">
+          <span class="ni">📚</span>Secundaria
+        </div>
+        <div class="nivel-btn" data-nivel="Bachillerato" onclick="selNivel(this)">
+          <span class="ni">🎒</span>Bachillerato
+        </div>
+        <div class="nivel-btn" data-nivel="Universidad" onclick="selNivel(this)">
+          <span class="ni">🎓</span>Universidad
+        </div>
+        <div class="nivel-btn" data-nivel="Posgrado" onclick="selNivel(this)">
+          <span class="ni">🔬</span>Posgrado
+        </div>
+      </div>
+    </div>
+
+    <div id="error-box"></div>
+    <button class="btn-gen" id="btn-generar" onclick="generar()">✨ Generar guía de estudio</button>
+  </div>
+
+  <!-- LOADING -->
+  <div id="loading" class="card">
+    <div class="spinner"></div>
+    <p id="loading-msg">Analizando el contenido...</p>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="resultado">
+    <div class="res-card">
+      <div style="font-size:3rem;margin-bottom:12px">🎉</div>
+      <h3>¡Tu guía está lista!</h3>
+      <p>Descárgala como archivo HTML o previsualízala aquí</p>
+      <div class="btn-row">
+        <a id="btn-download" class="btn-download" download="guia-de-estudio.html">⬇️ Descargar HTML</a>
+        <button class="btn-preview" onclick="abrirPreview()">👁️ Vista previa</button>
+      </div>
+      <br>
+      <button class="btn-new" onclick="reiniciar()">← Generar otra guía</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- Preview modal -->
+<div id="preview-modal">
+  <div id="preview-wrap">
+    <div id="preview-header">
+      <span>Vista previa</span>
+      <button onclick="cerrarPreview()">✕ Cerrar</button>
+    </div>
+    <iframe id="preview-frame"></iframe>
+  </div>
+</div>
+
+<script>
+  let nivelSeleccionado = 'Secundaria';
+  let archivoSeleccionado = null;
+  let htmlGenerado = '';
+
+  // ── Nivel ──
+  function selNivel(el) {
+    document.querySelectorAll('.nivel-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    nivelSeleccionado = el.dataset.nivel;
+  }
+
+  // ── Drag & drop ──
+  const drop = document.getElementById('file-drop');
+  const fileInput = document.getElementById('file-input');
+
+  drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('over'); });
+  drop.addEventListener('dragleave', () => drop.classList.remove('over'));
+  drop.addEventListener('drop', e => {
+    e.preventDefault(); drop.classList.remove('over');
+    const file = e.dataTransfer.files[0];
+    if (file) setArchivo(file);
+  });
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files[0]) setArchivo(fileInput.files[0]);
+  });
+
+  function setArchivo(file) {
+    archivoSeleccionado = file;
+    document.getElementById('file-name').textContent = `📎 ${file.name}`;
+  }
+
+  // ── Loading messages ──
+  const msgs = [
+    'Analizando el contenido...', 'Organizando los temas...',
+    'Escribiendo las explicaciones...', 'Preparando el glosario...',
+    'Creando las preguntas del quiz...', 'Finalizando la guía...'
+  ];
+  let msgIdx = 0, msgInterval;
+
+  function startLoadingMsgs() {
+    msgIdx = 0;
+    document.getElementById('loading-msg').textContent = msgs[0];
+    msgInterval = setInterval(() => {
+      msgIdx = (msgIdx + 1) % msgs.length;
+      document.getElementById('loading-msg').textContent = msgs[msgIdx];
+    }, 3000);
+  }
+
+  function stopLoadingMsgs() { clearInterval(msgInterval); }
+
+  // ── Error ──
+  function mostrarError(msg) {
+    const el = document.getElementById('error-box');
+    el.textContent = '⚠️ ' + msg;
+    el.style.display = 'block';
+  }
+
+  // ── Generar ──
+  async function generar() {
+    document.getElementById('error-box').style.display = 'none';
+
+    const texto = document.getElementById('texto-input').value.trim();
+    if (!archivoSeleccionado && !texto) {
+      mostrarError('Debes proporcionar un archivo o escribir el tema.');
+      return;
+    }
+
+    // Mostrar loading
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
+    startLoadingMsgs();
+
+    const fd = new FormData();
+    fd.append('nivel', nivelSeleccionado);
+    if (archivoSeleccionado) fd.append('archivo', archivoSeleccionado);
+    if (texto) fd.append('texto', texto);
+
+    try {
+      const res = await fetch('/generar', { method: 'POST', body: fd });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.detail || 'Error desconocido');
+
+      htmlGenerado = data.html;
+
+      // Preparar descarga
+      const blob = new Blob([htmlGenerado], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      document.getElementById('btn-download').href = url;
+
+      stopLoadingMsgs();
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('resultado').style.display = 'block';
+
+    } catch (err) {
+      stopLoadingMsgs();
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('form-section').style.display = 'block';
+      mostrarError(err.message);
+    }
+  }
+
+  // ── Preview ──
+  function abrirPreview() {
+    const frame = document.getElementById('preview-frame');
+    const blob = new Blob([htmlGenerado], { type: 'text/html' });
+    frame.src = URL.createObjectURL(blob);
+    document.getElementById('preview-modal').classList.add('open');
+  }
+  function cerrarPreview() {
+    document.getElementById('preview-modal').classList.remove('open');
+    document.getElementById('preview-frame').src = '';
+  }
+
+  // ── Reiniciar ──
+  function reiniciar() {
+    htmlGenerado = '';
+    archivoSeleccionado = null;
+    document.getElementById('file-name').textContent = '';
+    document.getElementById('texto-input').value = '';
+    fileInput.value = '';
+    document.getElementById('resultado').style.display = 'none';
+    document.getElementById('error-box').style.display = 'none';
+    document.getElementById('form-section').style.display = 'block';
+  }
+</script>
+</body>
+</html>

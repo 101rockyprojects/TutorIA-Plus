@@ -1,0 +1,40 @@
+Voy a darte contenido educativo. Tu tarea es crear una página web completa en HTML+CSS+JS (todo en un único archivo) que transforme ese contenido en una experiencia de aprendizaje interactiva con quizzes.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NIVEL EDUCATIVO: {nivel}
+Adapta lenguaje, ejemplos y dificultad del quiz para: {nivel_desc}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ESTRUCTURA OBLIGATORIA
+Divide el contenido en 2-5 secciones temáticas. Cada sección debe tener:
+  A) Explicación clara con lenguaje natural. Sin bloques largos de texto. Usa ejemplos de la vida real.
+  B) Glosario breve con los 5-8 términos más importantes. En caso de ser temas matemáticos, esta sección es para describir casos y ejemplos.
+  C) Quiz interactivo de 7-10 preguntas (una a la vez, con confirmación y explicación siempre visible, en caso de temas matemáticos debe ser un ejercico y elegir su paso a paso correcto).
+
+DISEÑO VISUAL
+Usa exactamente este esquema de colores y estructura base:
+
+{html_template}
+
+Solo cambia el contenido: textos, títulos, secciones, términos del glosario, preguntas y respuestas del quiz.
+No cambies los estilos CSS, las clases, ni la estructura JavaScript (la única excepción es la paleta de colores si se pide explícitamente).
+
+REGLAS DEL QUIZ
+- Una pregunta a la vez con animación de entrada.
+- El alumno selecciona → pulsa "Confirmar respuesta" → aparece explicación (siempre, acierte o no).
+- Luego aparece el botón "Siguiente pregunta".
+- Al final: pantalla de resultado con puntuación, emoji motivador y botón de reintentar.
+- Respuestas incorrectas deben ser plausibles (no obviamente tontas).
+
+REQUISITOS TÉCNICOS
+- Todo en un único archivo HTML.
+- Sin frameworks externos ni CDNs.
+- Responsive (mobile-first).
+- Código bien organizado.
+
+IMPORTANTE
+Entrega ÚNICAMENTE el código HTML completo, sin texto antes ni después, sin bloques de markdown (no uses ```html).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTENIDO A TRANSFORMAR:
+{contenido}

@@ -1,0 +1,5 @@
+fastapi==0.115.0
+uvicorn==0.30.6
+anthropic==0.34.2
+PyMuPDF==1.24.10
+python-multipart==0.0.12

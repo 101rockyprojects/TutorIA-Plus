@@ -1,0 +1,184 @@
+INSTRUCCIÓN DE ESTRUCTURA HTML:
+El HTML que generes debe seguir exactamente este patrón. El CSS y JS son fijos — solo cambia el contenido marcado con [CONTENIDO].
+
+═══════════════════════════════════════════
+PARTE 1 — HEAD (no cambiar nada del CSS)
+═══════════════════════════════════════════
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[TÍTULO DEL TEMA] [EMOJI]</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gd:#1a6b3c;--gm:#2e9e5e;--gl:#5cbe8a;--gp:#d4f0e2;--gu:#eafaf1;--bg:#f4f6f5;--gra:#c8d6cf;--td:#1a2e25;--tm:#3d5a4a;--yw:#f9e04b;--or:#f07c33;--rd:#e03e3e;--bl:#3b82f6;--r:16px;--sh:0 4px 20px rgba(30,100,60,.10)}
+body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--td);min-height:100vh}
+header{background:linear-gradient(135deg,var(--gd) 0%,var(--gm) 100%);color:#fff;padding:28px 20px 22px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(255,255,255,.07);border-radius:50%}
+header::after{content:'';position:absolute;bottom:-60px;left:-30px;width:220px;height:220px;background:rgba(255,255,255,.05);border-radius:50%}
+header h1{font-size:clamp(1.6rem,5vw,2.4rem)}header p{margin-top:6px;font-size:1rem;opacity:.85}
+.he{font-size:2.5rem;display:block;margin-bottom:8px}
+.nav-tabs{display:flex;overflow-x:auto;gap:8px;padding:16px 16px 0;background:var(--gd);scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{flex-shrink:0;background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:12px 12px 0 0;padding:10px 18px;cursor:pointer;font-size:.85rem;font-weight:600;transition:background .2s;white-space:nowrap}
+.nav-tab:hover{background:rgba(255,255,255,.25)}.nav-tab.active{background:var(--bg);color:var(--gd)}
+main{max-width:860px;margin:0 auto;padding:24px 16px 60px}
+.sb{display:none}.sb.active{display:block}
+.si{background:#fff;border-radius:var(--r);padding:28px 24px;box-shadow:var(--sh);margin-bottom:20px}
+.si h2{font-size:1.5rem;color:var(--gd);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.si p{line-height:1.7;color:var(--tm);margin-bottom:14px;font-size:.97rem}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:18px 0}
+.cc{background:var(--gu);border:1.5px solid var(--gp);border-radius:12px;padding:16px}
+.cc .em{font-size:1.8rem;margin-bottom:8px;display:block}.cc h4{color:var(--gd);font-size:1rem;margin-bottom:6px}
+.cc p{font-size:.88rem;color:var(--tm);line-height:1.5}
+.ib{background:linear-gradient(135deg,#fffbe6,#fff9d0);border-left:4px solid var(--yw);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:.93rem}
+.ib strong{color:#7a5c00}
+.tb{background:linear-gradient(135deg,#e8f5ff,#d6edff);border-left:4px solid var(--bl);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:.93rem}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+th{background:var(--gm);color:#fff;padding:11px 14px;text-align:left}
+td{padding:10px 14px;border-bottom:1px solid var(--gp);background:#fff}
+tr:last-child td{border-bottom:none}tr:nth-child(even) td{background:var(--gu)}
+.gl2{background:#fff;border-radius:var(--r);padding:22px 24px;box-shadow:var(--sh);margin-bottom:20px}
+.gl2 h3{color:var(--gd);font-size:1.1rem;margin-bottom:14px}
+dl{display:flex;flex-direction:column;gap:10px}
+dt{font-weight:700;color:var(--gd);font-size:.95rem}
+dd{margin-left:14px;color:var(--tm);font-size:.88rem;line-height:1.5;border-left:2px solid var(--gp);padding-left:10px}
+.qb{background:#fff;border-radius:var(--r);padding:26px 24px;box-shadow:var(--sh);margin-bottom:20px}
+.qb h3{color:var(--gd);font-size:1.1rem;margin-bottom:6px}
+.qp{font-size:.82rem;color:var(--tm);margin-bottom:18px}.qp span{font-weight:700;color:var(--gm)}
+.pbw{height:6px;background:var(--gp);border-radius:10px;margin-bottom:20px;overflow:hidden}
+.pbf{height:100%;background:linear-gradient(90deg,var(--gl),var(--gm));border-radius:10px;transition:width .4s ease}
+.qt{font-size:1.05rem;font-weight:600;margin-bottom:16px;line-height:1.5;animation:fsi .3s ease}
+@keyframes fsi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.ol{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.ob{background:var(--gu);border:2px solid var(--gp);border-radius:10px;padding:12px 16px;text-align:left;cursor:pointer;font-size:.93rem;color:var(--td);transition:all .15s;line-height:1.4}
+.ob:hover:not(:disabled){border-color:var(--gm);background:var(--gp);transform:translateX(3px)}
+.ob.sel{border-color:var(--gm);background:var(--gp);font-weight:600}
+.ob.cor{border-color:var(--gm);background:#d4f5e2}
+.ob.wro{border-color:var(--rd);background:#fde8e8}
+.ob:disabled{cursor:default}
+.cb{background:var(--gm);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s}
+.cb:hover:not(:disabled){background:var(--gd);transform:translateY(-1px)}
+.cb:disabled{background:var(--gra);cursor:not-allowed}
+.fb{margin-top:16px;border-radius:10px;padding:14px 16px;font-size:.92rem;line-height:1.5;display:none;animation:fsi .3s ease}
+.fb.cor{background:#d4f5e2;border-left:4px solid var(--gm);color:var(--gd)}
+.fb.wro{background:#fde8e8;border-left:4px solid var(--rd);color:#7a1c1c}
+.nb{margin-top:14px;background:var(--or);color:#fff;border:none;border-radius:10px;padding:11px 26px;font-size:.93rem;font-weight:700;cursor:pointer;transition:all .2s;display:none}
+.nb:hover{background:#c4631a;transform:translateY(-1px)}
+.qr{text-align:center;padding:30px 20px;display:none;animation:fsi .4s ease}
+.qr .re{font-size:3.5rem;display:block;margin-bottom:12px}
+.qr h4{font-size:1.3rem;color:var(--gd);margin-bottom:8px}
+.qr p{color:var(--tm);font-size:.95rem;margin-bottom:20px}
+.sb2{display:inline-block;background:var(--gm);color:#fff;border-radius:50px;padding:8px 22px;font-size:1.1rem;font-weight:700;margin-bottom:18px}
+.rb{background:var(--gp);color:var(--gd);border:2px solid var(--gm);border-radius:10px;padding:10px 22px;font-size:.9rem;font-weight:700;cursor:pointer}
+hr.dv{border:none;border-top:2px dashed var(--gp);margin:20px 0}
+.stb{position:fixed;bottom:24px;right:24px;background:var(--gm);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 14px rgba(46,158,94,.35);display:none;align-items:center;justify-content:center;z-index:100}
+.stb.v{display:flex}
+@media(max-width:600px){.si,.gl2,.qb{padding:18px 14px}.cg{grid-template-columns:1fr}main{padding:16px 10px 60px}}
+</style>
+</head>
+
+═══════════════════════════════════════════
+PARTE 2 — BODY (cambia el [CONTENIDO])
+═══════════════════════════════════════════
+<body>
+<header>
+  <span class="he">[EMOJI DEL TEMA]</span>
+  <h1>[TÍTULO DEL TEMA]</h1>
+  <p>[MATERIA O ÁREA] · ¡Aprende jugando! 🎮</p>
+</header>
+
+<!-- NAVEGACIÓN: un botón por sección -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showS(0)">📌 [Sección 1]</button>
+  <button class="nav-tab" onclick="showS(1)">📌 [Sección 2]</button>
+  <!-- ... más secciones ... -->
+</div>
+
+<main>
+  <!-- SECCIÓN 0 (activa por defecto) -->
+  <div class="sb active" id="s0">
+    <!-- Bloque de contenido educativo -->
+    <div class="si">
+      <h2>[EMOJI] [Título Sección]</h2>
+      <p>[Párrafo explicativo corto]</p>
+      <!-- Tarjetas de conceptos -->
+      <div class="cg">
+        <div class="cc"><span class="em">🔵</span><h4>[Concepto]</h4><p>[Descripción breve]</p></div>
+        <!-- más tarjetas... -->
+      </div>
+      <!-- Caja amarilla (dato importante) -->
+      <div class="ib"><strong>💡 Recuerda:</strong> [Dato clave]</div>
+      <!-- Caja azul (curiosidad) -->
+      <div class="tb">🔍 <strong>¿Sabías que...?</strong> [Curiosidad]</div>
+      <hr class="dv">
+      <!-- Tabla comparativa si aplica -->
+      <table><thead><tr><th>[Col1]</th><th>[Col2]</th></tr></thead>
+      <tbody><tr><td>[dato]</td><td>[dato]</td></tr></tbody></table>
+    </div>
+
+    <!-- Glosario -->
+    <div class="gl2">
+      <h3>📖 Glosario — [Sección]</h3>
+      <dl>
+        <dt>[Término]</dt><dd>[Definición corta]</dd>
+        <!-- más términos... -->
+      </dl>
+    </div>
+
+    <!-- Quiz -->
+    <div class="qb">
+      <h3>🧠 Quiz — [Sección]</h3>
+      <p class="qp">Pregunta <span id="c0">1</span> de <span id="t0">7</span></p>
+      <div class="pbw"><div class="pbf" id="b0" style="width:0%"></div></div>
+      <div id="q0"></div>
+      <div class="qr" id="r0"></div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 1 -->
+  <div class="sb" id="s1">
+    <!-- mismo patrón que sección 0 -->
+    <!-- Quiz con ids: c1, t1, b1, q1, r1 -->
+  </div>
+
+  <!-- ... más secciones con ids incrementales ... -->
+</main>
+
+<button class="stb" id="stb" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+═══════════════════════════════════════════
+PARTE 3 — JAVASCRIPT (no cambiar la lógica)
+Solo cambia QD con los datos del contenido
+═══════════════════════════════════════════
+<script>
+// QD: array de arrays, uno por sección
+// Cada pregunta: { q: "texto", o: ["A","B","C","D"], a: índice_correcto, e: "explicación" }
+const QD=[
+  // Sección 0
+  [
+    {q:"[Pregunta 1]?",o:["[Op A]","[Op B]","[Op C]","[Op D]"],a:0,e:"✅ [Explicación pedagógica]"},
+    // ... 6-7 preguntas
+  ],
+  // Sección 1
+  [
+    {q:"[Pregunta 1]?",o:["[Op A]","[Op B]","[Op C]","[Op D]"],a:1,e:"✅ [Explicación pedagógica]"},
+    // ...
+  ],
+  // ... más secciones
+];
+
+// ── LÓGICA FIJA — NO MODIFICAR ──
+const ST=QD.map(a=>({cur:0,sc:0,sel:null,conf:false,tot:a.length}));
+function showS(i){document.querySelectorAll('.sb').forEach((e,j)=>e.classList.toggle('active',j===i));document.querySelectorAll('.nav-tab').forEach((e,j)=>e.classList.toggle('active',j===i));window.scrollTo({top:0,behavior:'smooth'});}
+function rQ(i){const s=ST[i];const cEl=document.getElementById('c'+i);const bar=document.getElementById('b'+i);const qEl=document.getElementById('q'+i);const rEl=document.getElementById('r'+i);if(!cEl)return;document.getElementById('t'+i).textContent=s.tot;if(s.cur>=s.tot){qEl.innerHTML='';rEl.style.display='block';const p=Math.round(s.sc/s.tot*100);let em='😅',m='¡No pasa nada! Repasa y vuelve a intentarlo.';if(p===100){em='🏆';m='¡Perfecto! ¡Eres un genio!';}else if(p>=70){em='🌟';m='¡Muy bien! Repasa las que fallaste.';}else if(p>=50){em='👍';m='Bien, pero puedes mejorar.';}rEl.innerHTML=`<span class="re">${em}</span><h4>${m}</h4><div class="sb2">${s.sc}/${s.tot} (${p}%)</div><p>¡Sigue practicando! 💪</p><button class="rb" onclick="reQ(${i})">🔄 Reintentar</button>`;bar.style.width='100%';return;}rEl.style.display='none';cEl.textContent=s.cur+1;bar.style.width=`${(s.cur/s.tot)*100}%`;const q=QD[i][s.cur];s.sel=null;s.conf=false;qEl.innerHTML=`<div class="qt">${q.q}</div><div class="ol" id="ol${i}">${q.o.map((o,j)=>`<button class="ob" id="o${i}${j}" onclick="selO(${i},${j})">${o}</button>`).join('')}</div><button class="cb" id="cb${i}" onclick="confA(${i})" disabled>Confirmar respuesta ✔</button><div class="fb" id="fb${i}"></div><button class="nb" id="nb${i}" onclick="nextQ(${i})">Siguiente pregunta →</button>`;}
+function selO(i,j){const s=ST[i];if(s.conf)return;s.sel=j;document.querySelectorAll(`#ol${i} .ob`).forEach((b,k)=>b.classList.toggle('sel',k===j));document.getElementById('cb'+i).disabled=false;}
+function confA(i){const s=ST[i];if(s.conf||s.sel===null)return;s.conf=true;const q=QD[i][s.cur];const ok=s.sel===q.a;if(ok)s.sc++;document.querySelectorAll(`#ol${i} .ob`).forEach((b,k)=>{b.disabled=true;if(k===q.a)b.classList.add('cor');if(k===s.sel&&!ok)b.classList.add('wro');});const fb=document.getElementById('fb'+i);fb.className=`fb ${ok?'cor':'wro'}`;fb.innerHTML=`${ok?'✅ ¡Correcto!':'❌ Incorrecto.'} ${q.e}`;fb.style.display='block';document.getElementById('cb'+i).disabled=true;document.getElementById('nb'+i).style.display='inline-block';}
+function nextQ(i){ST[i].cur++;rQ(i);}
+function reQ(i){ST[i].cur=0;ST[i].sc=0;document.getElementById('r'+i).style.display='none';rQ(i);}
+window.addEventListener('scroll',()=>document.getElementById('stb').classList.toggle('v',window.scrollY>300));
+document.addEventListener('DOMContentLoaded',()=>{for(let i=0;i<QD.length;i++)rQ(i);});
+</script>
+</body>
+</html>
