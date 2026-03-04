@@ -1,3 +1,12 @@
+---
+title: TutorIA Plus
+emoji: 🎓
+colorFrom: green
+colorTo: teal
+sdk: docker
+pinned: false
+---
+
 # 🎓 Generador de Guías de Estudio
 
 Convierte PDFs, imágenes o texto en guías HTML interactivas con quiz adaptadas por nivel educativo.
