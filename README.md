@@ -2,7 +2,7 @@
 title: TutorIA Plus
 emoji: 🎓
 colorFrom: green
-colorTo: teal
+colorTo: gray
 sdk: docker
 pinned: false
 ---
